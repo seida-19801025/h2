@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水素燃焼実演</title>
+
+<style>
+  #center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  button {
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(152, 152, 152, 0.43);/*アイコン色*/
+    width: 130px;
+    height: 130px;
+    line-height: 80px;
+    font-size: 20px;
+    border-radius: 50%;
+    text-align: center;
+    overflow: hidden;
+    font-weight: bold;
+    background-image: linear-gradient(#e8e8e8 0%, #d6d6d6 100%);
+    text-shadow: 1px 1px 1px rgba(24, 23, 23, 0.66);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
+    border-bottom: solid 2px #b5b5b5;
+  }
+
+  button i {
+    line-height: 80px;
+  }
+
+  button:active {
+    /*押したとき*/
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
+    border-bottom: none;
+  }
+</style>
+
+</head>
+
+
+<body>
+<div id="center">
+  <button id="playButton">再生(a)</button>
+</div>
+
+<script>
+
+  // ボタン要素を取得
+  var button = document.getElementById("playButton");
+  // 音声ファイルのパス
+  var audioPath = 'h2.mp3';
+  // Audioオブジェクトを作成
+  var audio = new Audio(audioPath);
+  // 再生中かどうかを管理する変数
+  var isPlaying = false;
+
+  // 音声再生後の処理
+  audio.addEventListener('ended', function() {
+    playButton.textContent = '再生(a)'; // ボタンのラベルを「再生」に変更
+    isPlaying = false;
+  });
+
+  // ボタンがクリックされたときの処理
+  button.onclick = function() {
+    playAudio();
+  }
+
+  // キーボードのキーが押されたときの処理
+  document.onkeydown = function(e) {
+    // 押されたキーが 'a' かどうかを確認
+    if (e.key === 'a') {
+      playAudio();
+    }
+  }
+
+  // オーディオを再生する関数
+  function playAudio() {
+    if(isPlaying){
+      isPlaying = false;
+      playButton.textContent = '再生(a)'; // ボタンのラベルを「再生」に変更
+      audio.pause();
+    } else {
+      isPlaying = true;
+      playButton.textContent = '停止(a)'; // ボタンのラベルを「再生」に変更
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    }
+  }
+</script>
+</body>
+</html>
